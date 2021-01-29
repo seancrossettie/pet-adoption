@@ -222,14 +222,14 @@ const petBuilder = (petArr) => {
   petArr.forEach((element, i) => { 
     domString += `<div class="card my-2" style="width: 18rem;" id=${i}>
     <div class="img-container" style="background-image: url('${element.imageUrl}');"></div>
+      <img src="${element.imageUrl}" alt="${element.name}">
     <div class="card-body">
-      <p class="card-text">${element.name}</p>
+      <h5 class="card-title">${element.name}</h5>
       <p class="card-text">${element.color}</p>
       <p class="card-text">${element.specialSkill}</p>
-      <p class="card-text">${element.type}</p>
+      <a href="#" class="btn btn-primary">${element.type}</a>
     </div>
   </div>`;
-    
   });
   
   printToDom('#pets', domString);
