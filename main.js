@@ -227,7 +227,7 @@ const petBuilder = (petArr) => {
       <h5 class="card-title">${element.name}</h5>
       <p class="card-text">${element.color}</p>
       <p class="card-text">${element.specialSkill}</p>
-      <a href="#" class="btn btn-primary">${element.type}</a>
+      <a href="#" class="btn btn-info">Adopt Me</a>
     </div>
   </div>`;
   });
@@ -235,8 +235,33 @@ const petBuilder = (petArr) => {
   printToDom('#pets', domString);
 }
 
+const petTypeChosen = (e) => {
+  const buttonId = e.target.id;
+
+  const petCategory = [];
+
+    for (let i = 0; i < pets.length; i++) {
+      if (pets[i].type === buttonId) {
+        petCategory.push(pets[i]);
+      } 
+    }
+    
+    if (buttonId === 'all') {
+      petBuilder(pets);
+    } else {
+      petBuilder(petCategory);
+    }
+}
+
+const buttonSelector = () => {
+  document.querySelector('#all').addEventListener('click', petTypeChosen)
+  document.querySelector('#cat').addEventListener('click', petTypeChosen)
+  document.querySelector('#dog').addEventListener('click', petTypeChosen)
+  document.querySelector('#dino').addEventListener('click', petTypeChosen)
+}
 
 const init = () => {
+  buttonSelector();
   petBuilder(pets);
 }
 
