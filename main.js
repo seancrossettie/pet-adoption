@@ -211,9 +211,9 @@ const pets = [
     }
   ];
 
-const printToDom = (divId, textToPrint) => {
+const printToDom = (divId, petCard) => {
   const selectedDiv = document.querySelector(divId);
-  selectedDiv.innerHTML = textToPrint;
+  selectedDiv.innerHTML = petCard;
 }
 
 const petBuilder = (petArr) => {
@@ -228,16 +228,16 @@ const petBuilder = (petArr) => {
       <p class="card-text">${element.color}</p>
       <p class="card-text">${element.specialSkill}</p>
       <a href="#" class="btn btn-info">Adopt Me</a>
+      <a href="#" class="btn btn-danger" id="${i}">Put Me Down</a>
     </div>
   </div>`;
   });
-  
+
   printToDom('#pets', domString);
 }
 
 const petTypeChosen = (e) => {
   const buttonId = e.target.id;
-
   const petCategory = [];
 
     for (let i = 0; i < pets.length; i++) {
@@ -253,15 +253,25 @@ const petTypeChosen = (e) => {
     }
 }
 
-const buttonSelector = () => {
-  document.querySelector('#all').addEventListener('click', petTypeChosen)
-  document.querySelector('#cat').addEventListener('click', petTypeChosen)
-  document.querySelector('#dog').addEventListener('click', petTypeChosen)
-  document.querySelector('#dino').addEventListener('click', petTypeChosen)
+function filterSelector() {
+  document.querySelector('#all').addEventListener('click', petTypeChosen);
+  document.querySelector('#cat').addEventListener('click', petTypeChosen);
+  document.querySelector('#dog').addEventListener('click', petTypeChosen);
+  document.querySelector('#dino').addEventListener('click', petTypeChosen);
+  document.querySelector('#pets').addEventListener('click', (e) => { 
+    const deleteType = e.target.type;
+    const deleteId = e.target.id;
+    if (deleteType === 'button') {
+      pets.splice(deleteId, 1);
+    }
+
+    console.log(e);
+    
+  })
 }
 
 const init = () => {
-  buttonSelector();
+  filterSelector();
   petBuilder(pets);
 }
 
