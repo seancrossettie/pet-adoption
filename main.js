@@ -227,8 +227,8 @@ const petBuilder = (petArr) => {
       <h5 class="card-title">${element.name}</h5>
       <p class="card-text">${element.color}</p>
       <p class="card-text">${element.specialSkill}</p>
-      <a href="#" class="btn btn-info">Adopt Me</a>
-      <a href="#" class="btn btn-danger" id="${i}">Put Me Down</a>
+      <button type="button" class="btn btn-info">Adopt Me</button>
+      <button type="button" class="btn btn-danger" id="delete">Put Me Down</button>
     </div>
   </div>`;
   });
@@ -253,21 +253,26 @@ const petTypeChosen = (e) => {
     }
 }
 
+const putMeDown = (e) => {
+
+  for (let i = 0; i < pets.length; i++) {  
+    const petsId = pets[i];
+    const deleteId = e.target.id;
+    const deleteType = e.target.type;
+   
+  if (deleteId === 'delete' && deleteType === 'button') {
+      pets.splice(pets[i], 1);
+    } 
+  }
+  petBuilder(pets);
+}
+
 function filterSelector() {
   document.querySelector('#all').addEventListener('click', petTypeChosen);
   document.querySelector('#cat').addEventListener('click', petTypeChosen);
   document.querySelector('#dog').addEventListener('click', petTypeChosen);
   document.querySelector('#dino').addEventListener('click', petTypeChosen);
-  document.querySelector('#pets').addEventListener('click', (e) => { 
-    const deleteType = e.target.type;
-    const deleteId = e.target.id;
-    if (deleteType === 'button') {
-      pets.splice(deleteId, 1);
-    }
-
-    console.log(e);
-    
-  })
+  document.querySelector('#pets').addEventListener('click', putMeDown);
 }
 
 const init = () => {
