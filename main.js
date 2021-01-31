@@ -211,9 +211,9 @@ const pets = [
     }
   ];
 
-const printToDom = (divId, petCard) => {
+const printToDom = (divId, petString) => {
   const selectedDiv = document.querySelector(divId);
-  selectedDiv.innerHTML = petCard;
+  selectedDiv.innerHTML = petString;
 }
 
 const petBuilder = (petArr) => {
@@ -228,7 +228,7 @@ const petBuilder = (petArr) => {
       <p class="card-text">${element.color}</p>
       <p class="card-text">${element.specialSkill}</p>
       <button type="button" class="btn btn-info">Adopt Me</button>
-      <button type="button" class="btn btn-danger" id="delete">Put Me Down</button>
+      <button type="button" class="btn btn-danger" id="${i}">Put Me Down</button>
     </div>
   </div>`;
   });
@@ -255,16 +255,13 @@ const petTypeChosen = (e) => {
 
 const putMeDown = (e) => {
 
-  for (let i = 0; i < pets.length; i++) {  
-    const petsId = pets[i];
-    const deleteId = e.target.id;
-    const deleteType = e.target.type;
-   
-  if (deleteId === 'delete' && deleteType === 'button') {
-      pets.splice(pets[i], 1);
+  const deleteId = e.target.id;
+  const deleteType = e.target.type;
+  
+  if (deleteType === 'button') {
+      pets.splice(deleteId, 1);
+      petBuilder(pets);
     } 
-  }
-  petBuilder(pets);
 }
 
 function filterSelector() {
